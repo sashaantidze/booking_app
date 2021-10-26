@@ -5,17 +5,24 @@ namespace App\Bookings\Filters;
 use App\Bookings\FIlters\Filter;
 use App\Bookings\TimeSlotGenerator;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Collection;
 
-class SlotsPassedTodayFilter implements Filter
+class UnavailabilityFilter implements Filter
 {
+
+
+	public function __construct(Collection $unavailabilities)
+	{
+		$this->unavailabilities = $unavailabilities;
+	}
 
 	public function apply(TimeSlotGenerator $generator, CarbonPeriod $interval)
 	{
+		
 		$interval->addFilter(function ($slot) use ($generator) {
-			if($generator->schedule->date->isToday()){
-				if($slot->lt(now())){
-					return false;
-				}
+			dump($slot);
+			foreach($this->unavailabilities as $not_av){
+
 			}
 
 			return true;
