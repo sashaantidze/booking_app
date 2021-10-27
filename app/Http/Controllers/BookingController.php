@@ -15,7 +15,7 @@ class BookingController extends Controller
     public function __invoke()
     {
         $schedule = Schedule::find(1);
-        $service = Service::find(4);
+        $service = Service::find(1);
 
 
         $slots = (new TimeSlotGenerator($schedule, $service))
