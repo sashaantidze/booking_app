@@ -27,8 +27,6 @@
 
 
 
-    {{$date}}
-
     <div class="flex justify-between items-center px-3 border-b border-gray-200 pb-2">
         @foreach($this->calnderWeekInterval as $day)
             
@@ -45,90 +43,29 @@
 
 
     <div class="max-h-52 overflow-y-auto">
-        <input type="radio" name="time" id="" value="" class="sr-only">
 
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
+        @if($this->availableTimeSlots->count())
 
-        <input type="radio" name="time" id="" value="" class="sr-only">
+            @foreach($this->availableTimeSlots as $slot)
 
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
+                <input type="radio" name="time" id="" value="" class="sr-only">
 
-        <input type="radio" name="time" id="" value="" class="sr-only">
+                <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
+                    {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg> --}}
+                    <span>{{$slot->format('g:i A')}}</span>    
+                </label>
 
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
+            @endforeach
 
-        <input type="radio" name="time" id="" value="" class="sr-only">
+        @else
 
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
+            <div class="text-center text-gray-700 px-4 py-2">
+                No available slots
+            </div>
 
-        <input type="radio" name="time" id="" value="" class="sr-only">
-
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
-
-        <input type="radio" name="time" id="" value="" class="sr-only">
-
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
-
-        <input type="radio" name="time" id="" value="" class="sr-only">
-
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
-
-        <input type="radio" name="time" id="" value="" class="sr-only">
-
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
-
-        <input type="radio" name="time" id="" value="" class="sr-only">
-
-        <label for="" class="w-full text-left focus:outline-none px-4 py-2 flex items-center cursor-pointer border-b border-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>9:00am</span>    
-        </label>
-
-        <div class="text-center text-gray-700 px-4 py-2">
-            No available slots
-        </div>
+        @endif
 
         
 
