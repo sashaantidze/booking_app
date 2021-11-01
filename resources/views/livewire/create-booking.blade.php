@@ -1,5 +1,5 @@
 <div class="bg-gray-200 max-w-sm mx-auto m-6 p-5 rounded-lg">
-    
+    {{var_dump($state)}}
     <form action="">
         <div class="mb-6">
             <label for="service" class="inline-block text-gray-700 font-bold mb-2">Select service</label>
