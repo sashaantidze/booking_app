@@ -1,12 +1,12 @@
 <div class="bg-gray-200 max-w-sm mx-auto m-6 p-5 rounded-lg">
-    {{var_dump($state)}}
-    <form action="">
+
+    <form wire:submit.prevent="createBooking">
         <div class="mb-6">
             <label for="service" class="inline-block text-gray-700 font-bold mb-2">Select service</label>
             <select name="" id="service" class="bg-white h-10 w-full border-none rounded-lg" wire:model="state.service">
                 <option value="">Select a Service</option>
                 @foreach($services as $service)
-                    <option value="{{$service->id}}">{{$service->name}} ({{$service->duration}}m)</option>
+                    <option value="{{$service->id}}">{{$service->name}} ({{$service->duration}}min)</option>
                 @endforeach
             </select>
         </div>
@@ -30,7 +30,39 @@
         </div>
 
 
+        @if ($this->hasDetailsToBook)
 
+            <div class="mb-6">
+                <div class="text-gray-700 font-bold mb-2">
+                    You're ready to book.
+                </div>
+
+                <div class="border-t border-b border-gray-300 py-2 px-2 bg-green-600 rounded-lg text-white">
+                    {{$this->selectedService->name}} ({{$this->selectedService->duration}} minutes) with {{$this->selectedEmployee->name}}
+                    on {{$this->timeObject->format('D jS M Y')}} at {{$this->timeObject->format('g:i A')}}
+                </div>
+            </div>
+
+
+            <div class="mb-6">
+
+                <div class="mb-3">
+                    <label for="name" class="inline-block text-gray-700 font-bold mb-2">Name</label>
+                    <input type="text" id="name" class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.name">
+                </div>
+
+                <div class="mb-3">
+                    <label for="name" class="inline-block text-gray-700 font-bold mb-2">Email</label>
+                    <input type="text" id="name" class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.email">
+                </div>
+
+            </div>
+
+            <button type="submit" class="bg-indigo-500 text-white h-11 px-4 text-center font-bold rounded-lg w-full">
+                Book Now
+            </button>
+
+        @endif
 
         
     </form>
