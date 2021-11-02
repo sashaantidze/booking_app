@@ -33,7 +33,7 @@ class Employee extends Model
 
     public function appointmentsForDate(Carbon $date)
     {
-        return $this->appointments()->whereDate('date', $date)->get();
+        return $this->appointments()->notCancelled()->whereDate('date', $date)->get();
     }
 
 
