@@ -49,11 +49,23 @@
                 <div class="mb-3">
                     <label for="name" class="inline-block text-gray-700 font-bold mb-2">Name</label>
                     <input type="text" id="name" class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.name">
+
+                    @error('state.name')
+                        <div class="font-semibold text-red-500 text-sm mt-2">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="name" class="inline-block text-gray-700 font-bold mb-2">Email</label>
                     <input type="text" id="name" class="bg-white h-10 w-full border-none rounded-lg" wire:model.defer="state.email">
+
+                    @error('state.email')
+                        <div class="font-semibold text-red-500 text-sm mt-2">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
 
             </div>

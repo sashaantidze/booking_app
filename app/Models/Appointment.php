@@ -19,8 +19,6 @@ class Appointment extends Model
         'end_time',
         'client_name',
         'client_email',
-        'service_id',
-        'employee_id',
     ];
 
 

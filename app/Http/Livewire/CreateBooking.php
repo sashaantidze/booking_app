@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Appointment;
 use App\Models\Employee;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -14,8 +15,8 @@ class CreateBooking extends Component
         'service' => null,
         'employee' => null,
         'time' => null,
-        'name' => null,
-        'email' => null,
+        'name' => 'names',
+        'email' => 'email@email.em',
     ];
 
 
@@ -30,10 +31,40 @@ class CreateBooking extends Component
     }
 
 
+    protected function rules()
+    {
+        return [
+            'state.service' => 'required|exists:services,id',
+            'state.employee' => 'required|exists:employees,id',
+            'state.time' => 'required|numeric',
+            'state.name' => 'required|string',
+            'state.email' => 'required|string',
+        ];
+    }
+
+
     public function createBooking()
     {
-        dd($this->state);
+        $this->validate();
+
+        $theBooking = [
+            'date' => $this->timeObject->toDateString(),
+            'start_time' => $this->timeObject->toTimeString(),
+            'end_time' => $this->timeObject->clone()->addMinutes($this->selectedService->duration)->toTimeString(),
+            'client_name' => $this->state['name'],
+            'client_email' => $this->state['email'],
+        ];
+
+
+        $appointment = Appointment::make($theBooking);
+
+        $appointment->service()->associate($this->selectedService);
+
+        $appointment->employee()->associate($this->selectedEmployee);        
+
+        $appointment->save();
     }
+
 
 
     public function getTimeObjectProperty()
