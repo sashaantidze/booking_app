@@ -12,7 +12,7 @@ use Livewire\Component;
 class CreateSchedule extends Component
 {
 
-    public const INCREMENT = 15;
+    public const INCREMENT = 60;
 
     public $date;
     public $services;
@@ -49,6 +49,8 @@ class CreateSchedule extends Component
     public function updatedStateEmployee($employee_id)
     {
         $this->state['service'] = null;
+        $this->state['start_time'] = null;
+        $this->timeSlot = null;
         if(!$employee_id){
             $this->services = collect();
             return;
@@ -124,10 +126,6 @@ class CreateSchedule extends Component
     public function setDate($timestamp)
     {
         $this->date = $timestamp;
-        // dump($this->calendarSelectedDateObject->setTimeFrom($this->defaultStartTime));
-        // dd($this->calendarSelectedDateObject->setTimeFrom($this->defaultEndTime));
-
-        //dd($this->scheduleCheck);
     }
 
 
