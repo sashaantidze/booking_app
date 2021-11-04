@@ -2,6 +2,7 @@
     <p class="text-center text-gray-700 text-xl font-bold mb-2">Create Schedule</p>
     <form>
 
+        {{var_dump($state)}}
 
         <div class="mb-6">
             <label for="employee" class="inline-block text-gray-700 font-bold mb-2">Select an employee</label>
@@ -27,6 +28,22 @@
 
 
         <div class="mb-6 {{!$this->selectedService || !$this->selectedEmployee ? 'invisible' : ''}}">
+
+
+            <div class="mb-6">
+                <label for="shift" class="inline-block text-gray-700 font-bold mb-2">Select shift duration</label>
+
+                <select name="" id="shift" class="bg-white h-10 w-full border-none rounded-lg" wire:model="shift">
+                    <option value="2">2 hours</option>
+                    <option value="4">4 hours</option>
+                    <option value="6">6 hours</option>
+                    <option value="8">8 hours</option>
+                    <option value="10">10 hours</option>
+                    <option value="12">12 hours</option>
+                </select>
+            </div>
+
+
             <div class="bg-white rounded-lg">
                 
                 <div class="flex items-center justify-center relative">
@@ -104,6 +121,36 @@
 
             </div>
         </div>
+
+
+
+        <div class="mb-6">
+            @if($this->readyToCreateSchedule)
+
+
+                <div class="mb-6">
+                    <div class="text-gray-700 font-bold mb-2">
+                        New Schedule ready
+                    </div>
+
+                    <div class="border-t border-b border-gray-300 py-2 px-2 bg-green-600 rounded-lg text-white">
+                        New schedule for <span class="font-bold">{{$this->selectedService->name}} ({{$this->selectedService->duration}}min)</span>
+                        with <span class="font-bold">{{$this->selectedEmployee->name}}</span>
+                        
+                    </div>
+                </div>
+
+
+
+
+                <button type="submit" class="bg-indigo-500 text-white h-11 px-4 text-center font-bold rounded-lg w-full">
+                    Create Schedule
+                </button>
+            @endif
+
+        </div>
+
+
         
     </form>
 </div>

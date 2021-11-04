@@ -15,6 +15,7 @@ class CreateSchedule extends Component
     public const INCREMENT = 60;
 
     public $date;
+    public $shift;
     public $services;
     public $calendarStartDate;
     public $defaultStartTime;
@@ -25,6 +26,7 @@ class CreateSchedule extends Component
         'employee' => null,
         'service' => null,
         'start_time' => null,
+        'shift' => null,
     ];
 
 
@@ -34,6 +36,7 @@ class CreateSchedule extends Component
         $this->calendarStartDate = now();
         $this->services = collect();
 
+        $this->shift = $this->state['shift'] = '2';
         $this->defaultStartTime = '08:00';
         $this->defaultEndTime = '23:00';
     }
@@ -43,6 +46,14 @@ class CreateSchedule extends Component
     {
         $this->timeSlot = $time;
         $this->state['start_time'] = $time;
+    }
+
+
+    public function updatedShift($shift)
+    {
+        $this->timeSlot = null;
+        $this->state['start_time'] = null;
+        $this->state['shift'] = $shift;
     }
 
 
@@ -125,8 +136,11 @@ class CreateSchedule extends Component
 
     public function setDate($timestamp)
     {
+        $this->state['start_time'] = null;
+        $this->timeSlot = null;
         $this->date = $timestamp;
     }
+
 
 
     public function getScheduleCheckProperty()
@@ -138,9 +152,17 @@ class CreateSchedule extends Component
     public function getTimeSlotsForDateProperty()
     {
         $start = $this->calendarSelectedDateObject->setTimeFrom($this->defaultStartTime);
-        $end = $this->calendarSelectedDateObject->clone()->setTimeFrom($this->defaultEndTime);
+        $end = $this->calendarSelectedDateObject->clone()->setTimeFrom($this->defaultEndTime)->subHours($this->shift);
+
+        //dd($end);
 
         return CarbonInterval::minutes(self::INCREMENT)->toPeriod($start, $end);
+    }
+
+
+    public function getReadyToCreateScheduleProperty()
+    {
+        return $this->state['service'] && $this->state['employee'] && $this->state['start_time'] && $this->state['shift'];
     }
 
 
