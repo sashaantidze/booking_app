@@ -27,8 +27,8 @@ Route::get('/dashboard', function () {
 
 
 
-Route::get('/bookings/create', CreateBooking::class);
-Route::get('/schedule/create', CreateSchedule::class);
+Route::get('/bookings/create', CreateBooking::class)->name('bookings.create');
+Route::get('/schedule/create', CreateSchedule::class)->name('schedule.create');
 Route::get('/bookings/{appointment:uuid}', ShowBooking::class)->name('bookings.show');
 
 require __DIR__.'/auth.php';

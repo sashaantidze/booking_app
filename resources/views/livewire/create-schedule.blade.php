@@ -1,8 +1,6 @@
 <div class="bg-gray-200 max-w-sm mx-auto m-6 p-5 rounded-lg">
     <p class="text-center text-gray-700 text-xl font-bold mb-2">Create Schedule</p>
-    <form>
-
-        {{var_dump($state)}}
+    <form wire:submit.prevent="createSchedule">
 
         <div class="mb-6">
             <label for="employee" class="inline-block text-gray-700 font-bold mb-2">Select an employee</label>

@@ -42,6 +42,42 @@ class CreateSchedule extends Component
     }
 
 
+
+    public function createSchedule()
+    {
+        $theSchedule = [
+            'date' => $this->calendarSelectedDateObject->toDateString(),
+            'start_time' => $this->timeObject->toTimeString(),
+            'end_time' => $this->timeObject->clone()->addHours($this->shift)->toTimeString(),
+        ];
+
+
+        $this->selectedEmployee->services()->attach($this->selectedService->id);
+
+        $schedule = Schedule::make($theSchedule);
+
+        $schedule->employee()->associate($this->selectedEmployee->id);
+
+        $schedule->save();
+
+
+        return redirect()->to(route('bookings.create'));
+    }
+
+
+
+    public function getTimeObjectProperty()
+    {
+        return Carbon::createFromTimestamp($this->state['start_time']);
+    }
+
+
+    public function getCalendarSelectedDateObjectProperty()
+    {
+        return Carbon::createFromTimestamp($this->date);
+    }
+
+
     public function updatedtimeSlot($time)
     {
         $this->timeSlot = $time;
@@ -100,12 +136,6 @@ class CreateSchedule extends Component
     } 
 
 
-    public function getCalendarSelectedDateObjectProperty()
-    {
-        return Carbon::createFromTimestamp($this->date);
-    }
-
-
     public function getCalnderWeekIntervalProperty()
     {
         return CarbonInterval::days(1)->toPeriod(
@@ -145,7 +175,8 @@ class CreateSchedule extends Component
 
     public function getScheduleCheckProperty()
     {
-        return Schedule::whereDate('date', $this->calendarSelectedDateObject)->count();
+        return Schedule::whereDate('date', $this->calendarSelectedDateObject)
+            ->where('employee_id', $this->state['employee'])->count();
     }
 
 
@@ -162,7 +193,10 @@ class CreateSchedule extends Component
 
     public function getReadyToCreateScheduleProperty()
     {
-        return $this->state['service'] && $this->state['employee'] && $this->state['start_time'] && $this->state['shift'];
+        return $this->state['service'] &&
+                $this->state['employee'] &&
+                $this->state['start_time'] &&
+                $this->state['shift'];
     }
 
 
