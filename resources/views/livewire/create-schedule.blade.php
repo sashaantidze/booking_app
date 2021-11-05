@@ -25,19 +25,19 @@
 
 
 
-        <div class="mb-6 {{!$this->selectedService || !$this->selectedEmployee ? 'invisible' : ''}}">
+        <div class="mb-6 {{!$this->selectedService || !$this->selectedEmployee ? 'hidden' : ''}}">
 
 
             <div class="mb-6">
                 <label for="shift" class="inline-block text-gray-700 font-bold mb-2">Select shift duration</label>
 
                 <select name="" id="shift" class="bg-white h-10 w-full border-none rounded-lg" wire:model="shift">
-                    <option value="2">2 hours</option>
-                    <option value="4">4 hours</option>
-                    <option value="6">6 hours</option>
-                    <option value="8">8 hours</option>
-                    <option value="10">10 hours</option>
-                    <option value="12">12 hours</option>
+                    <option value="3">3 hours</option>
+                    <option value="5">5 hours</option>
+                    <option value="7">7 hours</option>
+                    <option value="9">9 hours</option>
+                    <option value="11">11 hours</option>
+                    <option value="13">13 hours</option>
                 </select>
             </div>
 
@@ -132,8 +132,10 @@
                     </div>
 
                     <div class="border-t border-b border-gray-300 py-2 px-2 bg-green-600 rounded-lg text-white">
-                        New schedule for <span class="font-bold">{{$this->selectedService->name}} ({{$this->selectedService->duration}}min)</span>
-                        with <span class="font-bold">{{$this->selectedEmployee->name}}</span>
+                        <p class="text-lg border-b border-white">New schedule for <span class="font-bold">{{$this->selectedEmployee->name}}</span></p>
+                        <p class="font-bold">Service: {{$this->selectedService->name}} ({{$this->selectedService->duration}}min)</p>
+                        <p>Starts: <span class="italic">{{$this->timeObject->format('d/M/Y')}} at {{$this->timeObject->format('g:i A')}}</span></p>
+                        <p>End: <span class="italic">{{$this->timeObject->clone()->addHours($shift)->format('d/M/Y')}} at {{$this->timeObject->addHours($shift)->format('g:i A')}}</span></p>
                         
                     </div>
                 </div>
@@ -147,6 +149,14 @@
             @endif
 
         </div>
+
+
+
+        <div class="mt-6">
+        <p class="text-right">
+            <a class="text-sm hover:text-blue-500" href="{{route('bookings.create')}}">Go back</a>
+        </p>
+    </div>
 
 
         

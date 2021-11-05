@@ -17,6 +17,7 @@ class CreateSchedule extends Component
     public $date;
     public $shift;
     public $services;
+    public $employee;
     public $calendarStartDate;
     public $defaultStartTime;
     public $defaultEndTime;
@@ -36,7 +37,7 @@ class CreateSchedule extends Component
         $this->calendarStartDate = now();
         $this->services = collect();
 
-        $this->shift = $this->state['shift'] = '2';
+        $this->shift = $this->state['shift'] = '3';
         $this->defaultStartTime = '08:00';
         $this->defaultEndTime = '23:00';
     }
@@ -85,10 +86,16 @@ class CreateSchedule extends Component
     }
 
 
-    public function updatedShift($shift)
+    public function clearTime()
     {
         $this->timeSlot = null;
         $this->state['start_time'] = null;
+    }
+
+
+    public function updatedShift($shift)
+    {
+        $this->clearTime();
         $this->state['shift'] = $shift;
     }
 
@@ -96,13 +103,11 @@ class CreateSchedule extends Component
     public function updatedStateEmployee($employee_id)
     {
         $this->state['service'] = null;
-        $this->state['start_time'] = null;
-        $this->timeSlot = null;
+        $this->clearTime();
         if(!$employee_id){
             $this->services = collect();
             return;
         }
-
 
         $employee_services = $this->selectedEmployee->services;
         $this->services = $this->allServices->diff($employee_services);
@@ -122,13 +127,13 @@ class CreateSchedule extends Component
             return null;
         }
 
-        return Employee::find($this->state['employee']);
+        return $this->employee = Employee::find($this->state['employee']);
     }
 
 
     public function getSelectedServiceProperty()
     {
-        if(is_null($this->state['service'])){
+        if(!$this->state['service']){
             return null;
         }
 
@@ -166,8 +171,7 @@ class CreateSchedule extends Component
 
     public function setDate($timestamp)
     {
-        $this->state['start_time'] = null;
-        $this->timeSlot = null;
+        $this->clearTime();
         $this->date = $timestamp;
     }
 
@@ -176,7 +180,7 @@ class CreateSchedule extends Component
     public function getScheduleCheckProperty()
     {
         return Schedule::whereDate('date', $this->calendarSelectedDateObject)
-            ->where('employee_id', $this->state['employee'])->count();
+            ->where('employee_id', optional($this->employee)->id)->count();
     }
 
 
@@ -185,7 +189,10 @@ class CreateSchedule extends Component
         $start = $this->calendarSelectedDateObject->setTimeFrom($this->defaultStartTime);
         $end = $this->calendarSelectedDateObject->clone()->setTimeFrom($this->defaultEndTime)->subHours($this->shift);
 
-        //dd($end);
+        if($start->isToday() && $start->lt(now())){
+            $start = now()->addHours(1)->minute(0)->second(0);
+            $end = $end->addHour();
+        }
 
         return CarbonInterval::minutes(self::INCREMENT)->toPeriod($start, $end);
     }

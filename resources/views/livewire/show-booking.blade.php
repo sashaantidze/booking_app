@@ -40,5 +40,12 @@
     @endif
 
 
+    <div class="mt-6">
+        <p class="text-right">
+            <a class="text-sm hover:text-blue-500" href="{{route('bookings.create')}}">Go back</a>
+        </p>
+    </div>
+
+
 
 </div>
