@@ -79,7 +79,7 @@
         
     </form>
 
-    <div class="mb-8">
+    <div class="mt-8">
         <a class="hover:text-blue-500 text-sm" href="{{route('schedule.create')}}">Add new schedule</a>
     </div>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Livewire\CreateBooking;
 use App\Http\Livewire\CreateSchedule;
+use App\Http\Livewire\ListBookings;
 use App\Http\Livewire\ShowBooking;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/bookings/create', CreateBooking::class)->name('bookings.create');
+Route::get('/bookings/list', ListBookings::class)->name('bookings.list');
 Route::get('/schedule/create', CreateSchedule::class)->name('schedule.create');
 Route::get('/bookings/{appointment:uuid}', ShowBooking::class)->name('bookings.show');
 
