@@ -42,7 +42,7 @@
 
     <div class="mt-6">
         <p class="text-right">
-            <a class="text-sm hover:text-blue-500" href="{{route('bookings.create')}}">Go back</a>
+            <a class="text-sm hover:text-blue-500" href="{{route('bookings.list')}}">Go to list</a>
         </p>
     </div>
 

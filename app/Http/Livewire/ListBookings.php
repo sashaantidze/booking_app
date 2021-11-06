@@ -9,7 +9,7 @@ class ListBookings extends Component
 {
     public function render()
     {
-        $appointments = Appointment::NotCancelled()->get();
+        $appointments = Appointment::NotCancelled()->orderby('date', 'desc')->get();
 
         return view('livewire.list-bookings', ['appointments' => $appointments])->layout('layouts.guest');
     }

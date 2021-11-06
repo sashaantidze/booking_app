@@ -81,6 +81,9 @@
 
     <div class="mt-8">
         <a class="hover:text-blue-500 text-sm" href="{{route('schedule.create')}}">Add new schedule</a>
+        or 
+        <a class="hover:text-blue-500 text-sm" href="{{route('service.new')}}">Add new service</a>
+
     </div>
 
 </div>
